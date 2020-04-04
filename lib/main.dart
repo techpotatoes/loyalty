@@ -1,6 +1,24 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-void main() => runApp(MyApp());
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:loyalty/data/loyaltycard/model/loyaltycard.dart';
+
+void initialiseHive() async {
+  var path = Directory.current.path;
+  Hive
+    ..init(path)
+    ..registerAdapter(LoyaltyCardAdapter());
+
+  //Warm up boxes
+  await Hive.openBox<LoyaltyCard>('loyalty_card');
+}
+
+void main() async {
+  initialiseHive();
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

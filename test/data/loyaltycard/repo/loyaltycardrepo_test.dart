@@ -9,8 +9,8 @@ class MockLoyaltyCardBox extends Mock implements LoyaltyCardBox {}
 class MockBox<T> extends Mock implements Box<T> {}
 
 void main() {
-  final loyaltyCard1 = LoyaltyCard('Card1','12345');
-  final loyaltyCard2 = LoyaltyCard('Card2','54321');
+  final loyaltyCard1 = LoyaltyCard.fromParams('Card1','12345');
+  final loyaltyCard2 = LoyaltyCard.fromParams('Card2','54321');
   final loyaltyCardList = [loyaltyCard1, loyaltyCard2];
 
   group('Given a Loyalty cards repository', () {
@@ -28,7 +28,7 @@ void main() {
     });
 
     test('should save loyalty card in the box', () { 
-      final newCard = LoyaltyCard('CardNew','222333');
+      final newCard = LoyaltyCard.fromParams('CardNew','222333');
       
       loyaltyCardRepository.save(newCard);
 
@@ -36,7 +36,7 @@ void main() {
     });
 
     test('should delete loyalty card from the box', () { 
-      final existingCard = LoyaltyCard('ExistingCard','777878');
+      final existingCard = LoyaltyCard.fromParams('ExistingCard','777878');
       
       loyaltyCardRepository.delete(existingCard);
 

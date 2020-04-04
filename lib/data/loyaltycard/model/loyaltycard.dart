@@ -1,13 +1,13 @@
 import 'package:hive/hive.dart';
 
+part 'loyaltycard.g.dart';
+
 @HiveType(typeId: 0)
 class LoyaltyCard extends HiveObject {
 
-  LoyaltyCard(String name, String number) {
-    this.name =  name;
-    this.number = number;
-  }
+  LoyaltyCard();
 
+  LoyaltyCard.fromParams(this.name, this.number);
   @HiveField(0)
   String name;
 

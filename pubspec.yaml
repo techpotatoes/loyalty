@@ -16,6 +16,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^4.1.1
+  build_runner: ^1.8.1
+  hive_generator: ^0.7.0+2
 
 flutter:
   uses-material-design: true
