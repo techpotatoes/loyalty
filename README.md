@@ -1,16 +1,10 @@
-# loyalty
+# Flutter loyalty app.
 
-A new Flutter project.
+Loyalty app is a really simple application to manage your loyalty cards on your phone. It only stores data locally on your phone.
 
-## Getting Started
+The application was developed as part of a series of blog posts called <a href="https://techpotatoes.com/2020/03/02/flutter-development-series-loyalty-app/">Flutter development series. </a>
 
-This project is a starting point for a Flutter application.
+# How to run tests: 
 
-A few resources to get you started if this is your first Flutter project:
+flutter test
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
