@@ -8,33 +8,36 @@ import 'package:loyalty/data/loyaltycard/model/loyaltycard.dart';
 import 'package:loyalty/data/loyaltycard/repo/loyaltycardrepo.dart';
 import 'package:loyalty/domain/loyalty/loyalty_bloc.dart';
 import 'package:loyalty/presentation/loyalty/loyalty_list_page.dart';
+import 'package:path_provider/path_provider.dart';
 
-void initialiseHive() async {
-  var path = Directory.current.path;
+Future<void> _initialiseHive() async {
+  final Directory appDocDirectory = await getApplicationDocumentsDirectory();
+  final path = appDocDirectory.path;
   Hive
     ..init(path)
     ..registerAdapter(LoyaltyCardAdapter());
-
-  //Warm up boxes
-  await Hive.openBox<LoyaltyCard>('loyalty_card');
 }
 
 void main() async {
-  initialiseHive();
+  WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MyApp());
+  await _initialiseHive();
+
+  runApp(
+    BlocProvider<LoyaltyBloc>(
+      create: (BuildContext context) => LoyaltyBloc(loyaltyCardRepository: LoyaltyCardRepository(LoyaltyCardBox())),
+      child: MyApp(),
+      )
+    );
 }
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: BlocProvider(
-        create: (BuildContext context) => LoyaltyBloc(loyaltyCardRepository: LoyaltyCardRepository(LoyaltyCardBox())),
-        child: LoyaltyListPage(),
-      ));      
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: LoyaltyListPage());
   }
 }

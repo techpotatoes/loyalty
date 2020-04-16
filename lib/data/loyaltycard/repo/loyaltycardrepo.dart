@@ -11,16 +11,23 @@ class LoyaltyCardRepository implements Repository<LoyaltyCard> {
   }
 
   @override
-  List<LoyaltyCard> getAll() => loyaltyCardBox.box.values.toList();
+  Future<List<LoyaltyCard>> getAll() async {
+     final box = await loyaltyCardBox.box;
+     return box.values.toList();
+  }
 
   @override
-  void save(LoyaltyCard newObject) {
-    loyaltyCardBox.box.add(newObject);
+  Future<void> save(LoyaltyCard newObject) async {
+    final box = await loyaltyCardBox.box;
+
+    box.add(newObject);
   } 
 
   @override
-  void delete(LoyaltyCard objectToDelete) {
-    loyaltyCardBox.box.delete(objectToDelete.key);
+  Future<void> delete(LoyaltyCard objectToDelete) async {
+    final box = await loyaltyCardBox.box;
+
+    box.delete(objectToDelete.key);
   } 
 
 }

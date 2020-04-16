@@ -14,9 +14,6 @@ void initialiseHive() async {
   
   //Always starts from a clean box  
   Hive.deleteBoxFromDisk('loyalty_card');
-    
-  //Warm up boxes
-  await Hive.openBox<LoyaltyCard>('loyalty_card');
 }
 
 void main() async {
@@ -25,12 +22,12 @@ void main() async {
   final newCard = LoyaltyCard.fromParams('New card', '12345');
 
   group('Given a real loyalty cards repository instance and a real Hive box', () {
-    test('should save and then retrieve saved loyalty card from the repository', () {
+    test('should save and then retrieve saved loyalty card from the repository', () async {
         final loyaltyCardRepository = LoyaltyCardRepository(LoyaltyCardBox());
 
-        loyaltyCardRepository.save(newCard);
+        await loyaltyCardRepository.save(newCard);
 
-        expect(loyaltyCardRepository.getAll(), [newCard]);
+        expect(await loyaltyCardRepository.getAll(), [newCard]);
     });
   });
 }

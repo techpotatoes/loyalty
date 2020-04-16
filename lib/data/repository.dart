@@ -6,5 +6,5 @@ abstract class Repository<T extends HiveObject> {
 
   void delete(T objectToDelete);
   
-  List<T> getAll();
+  Future<List<T>> getAll();
 }

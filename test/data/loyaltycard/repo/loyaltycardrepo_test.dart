@@ -16,29 +16,30 @@ void main() {
   group('Given a Loyalty cards repository', () {
     final mockLoyaltyCardBox = MockLoyaltyCardBox();
     final mockBox = MockBox<LoyaltyCard>();
+    
     final loyaltyCardRepository = LoyaltyCardRepository(mockLoyaltyCardBox);
 
-    when(mockLoyaltyCardBox.box).thenReturn(mockBox);
+    when(mockLoyaltyCardBox.box).thenAnswer((_) async => Future.value(mockBox));
     when(mockBox.values).thenReturn(loyaltyCardList);
 
-    test('should retrieve all LoyaltyCards', () {
-        final result = loyaltyCardRepository.getAll();
+    test('should retrieve all LoyaltyCards', () async {
+        final result = await loyaltyCardRepository.getAll();
 
         expect(result, loyaltyCardList);
     });
 
-    test('should save loyalty card in the box', () { 
+    test('should save loyalty card in the box', () async { 
       final newCard = LoyaltyCard.fromParams('CardNew','222333');
       
-      loyaltyCardRepository.save(newCard);
+      await loyaltyCardRepository.save(newCard);
 
       verify(mockBox.add(newCard));
     });
 
-    test('should delete loyalty card from the box', () { 
+    test('should delete loyalty card from the box', () async { 
       final existingCard = LoyaltyCard.fromParams('ExistingCard','777878');
       
-      loyaltyCardRepository.delete(existingCard);
+      await loyaltyCardRepository.delete(existingCard);
 
       verify(mockBox.delete(existingCard.key));
     });
