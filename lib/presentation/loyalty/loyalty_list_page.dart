@@ -27,43 +27,43 @@ class _LoyaltyListPageState extends State<LoyaltyListPage> {
               BlocBuilder<LoyaltyBloc, LoyaltyState>(builder: (_, state) {
             switch (state.runtimeType) {
               case LoyaltyEmpty:
-                return _LoyaltyEmptyWidget();
+                return _EmptyWidget();
                 break;
               case LoyaltyLoading:
                 return CircularProgressIndicator();
                 break;
               case LoyaltyError:
-                return _LoyaltyErrorWidget();
+                return _ErrorWidget();
                 break;
               case LoyaltyLoaded:
-                return _LoyaltyLoadedWidget(loyaltyCards: state.props.first);
+                return _LoadedWidget(loyaltyCards: state.props.first);
                 break;
               default:
-                return _LoyaltyErrorWidget();
+                return _ErrorWidget();
             }
           }),
         ));
   }
 }
 
-class _LoyaltyEmptyWidget extends StatelessWidget {
+class _EmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text("No items yet. Add some new cards.");
   }
 }
 
-class _LoyaltyErrorWidget extends StatelessWidget {
+class _ErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text("An error has ocurred");
   }
 }
 
-class _LoyaltyLoadedWidget extends StatelessWidget {
+class _LoadedWidget extends StatelessWidget {
   final List<LoyaltyCard> loyaltyCards;
 
-  const _LoyaltyLoadedWidget({Key key, @required this.loyaltyCards})
+  const _LoadedWidget({Key key, @required this.loyaltyCards})
       : super(key: key);
 
   @override

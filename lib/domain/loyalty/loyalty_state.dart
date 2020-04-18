@@ -23,8 +23,4 @@ class LoyaltyLoaded extends LoyaltyState {
 
   @override
   List<Object> get props => [loyaltyCards];
-
-  @override
-  String toString() =>
-      'LoyaltyLoaded { loyaltyCards: ${loyaltyCards.length}}';
 }

@@ -19,7 +19,11 @@ class LoyaltyBloc extends Bloc<LoyaltyEvent, LoyaltyState>{
       case Fetch:
         try {     
           final _loyaltyCards = await _fetchLoyaltyCards();
-          yield LoyaltyLoaded(loyaltyCards: _loyaltyCards);
+          if (_loyaltyCards.length > 0) {
+            yield LoyaltyLoaded(loyaltyCards: _loyaltyCards);          
+          }else {
+            yield LoyaltyEmpty();   
+          }
         } catch(_) {
           yield LoyaltyError();
         }
