@@ -17,7 +17,8 @@ class LoyaltyBloc extends Bloc<LoyaltyEvent, LoyaltyState>{
   Stream<LoyaltyState> mapEventToState(LoyaltyEvent event) async* {
     switch (event.runtimeType) {
       case Fetch:
-        try {     
+        try {    
+          yield LoyaltyLoading();
           final _loyaltyCards = await _fetchLoyaltyCards();
           if (_loyaltyCards.length > 0) {
             yield LoyaltyLoaded(loyaltyCards: _loyaltyCards);          

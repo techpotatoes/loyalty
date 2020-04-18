@@ -23,21 +23,21 @@ void main() async {
 
   await _initialiseHive();
 
-  runApp(
-    BlocProvider<LoyaltyBloc>(
-      create: (BuildContext context) => LoyaltyBloc(loyaltyCardRepository: LoyaltyCardRepository(LoyaltyCardBox())),
-      child: MyApp(),
-      )
-    );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: LoyaltyListPage());
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: BlocProvider<LoyaltyBloc>(
+        create: (BuildContext context) => LoyaltyBloc(
+            loyaltyCardRepository: LoyaltyCardRepository(LoyaltyCardBox())),
+        child: LoyaltyListPage(),
+      ),
+    );
   }
 }

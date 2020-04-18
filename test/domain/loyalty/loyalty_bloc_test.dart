@@ -35,7 +35,7 @@ void main() {
 
         expectLater(
           loyaltyBloc,
-          emitsInOrder([LoyaltyEmpty(), LoyaltyLoaded(loyaltyCards: [loyaltyCard1])])
+          emitsInOrder([LoyaltyEmpty(), LoyaltyLoading(), LoyaltyLoaded(loyaltyCards: [loyaltyCard1])])
         );
     });
 
@@ -47,7 +47,7 @@ void main() {
 
         expectLater(
           loyaltyBloc,
-          emitsInOrder([LoyaltyEmpty()])
+          emitsInOrder([LoyaltyEmpty(), LoyaltyLoading(), LoyaltyEmpty()])
         );
     });
 
@@ -59,7 +59,7 @@ void main() {
 
         expectLater(
           loyaltyBloc,
-          emitsInOrder([LoyaltyEmpty(), LoyaltyError()])
+          emitsInOrder([LoyaltyEmpty(), LoyaltyLoading(), LoyaltyError()])
         );
     });
 

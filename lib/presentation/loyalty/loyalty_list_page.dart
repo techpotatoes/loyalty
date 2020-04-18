@@ -15,9 +15,13 @@ class LoyaltyListPage extends StatefulWidget {
 class _LoyaltyListPageState extends State<LoyaltyListPage> {
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     BlocProvider.of<LoyaltyBloc>(context).add(Fetch());
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("Loyalty"),
