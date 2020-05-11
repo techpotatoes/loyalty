@@ -28,6 +28,13 @@ class LoyaltyCardRepository implements Repository<LoyaltyCard> {
     final box = await loyaltyCardBox.box;
 
     box.delete(objectToDelete.key);
-  } 
+  }
 
+    @override
+  Future<void> deleteAll() async {
+    final box = await loyaltyCardBox.box;
+
+    box.deleteAll(box.keys);
+  } 
+ 
 }

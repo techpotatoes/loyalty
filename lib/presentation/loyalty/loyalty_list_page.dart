@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loyalty/data/loyaltycard/model/loyaltycard.dart';
 import 'package:loyalty/domain/loyalty/loyalty_bloc.dart';
 import 'package:loyalty/domain/loyalty/loyalty_event.dart';
 import 'package:loyalty/domain/loyalty/loyalty_state.dart';
+import 'package:loyalty/presentation/loyalty/loyalty_card_list_widget.dart';
 
 class LoyaltyListPage extends StatefulWidget {
   LoyaltyListPage({Key key}) : super(key: key);
@@ -34,13 +34,13 @@ class _LoyaltyListPageState extends State<LoyaltyListPage> {
                 return _EmptyWidget();
                 break;
               case LoyaltyLoading:
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
                 break;
               case LoyaltyError:
                 return _ErrorWidget();
                 break;
               case LoyaltyLoaded:
-                return _LoadedWidget(loyaltyCards: state.props.first);
+                return LoyaltyCardListWidget(loyaltyCards: state.props.first);
                 break;
               default:
                 return _ErrorWidget();
@@ -61,17 +61,5 @@ class _ErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text("An error has ocurred");
-  }
-}
-
-class _LoadedWidget extends StatelessWidget {
-  final List<LoyaltyCard> loyaltyCards;
-
-  const _LoadedWidget({Key key, @required this.loyaltyCards})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text("Loaded. cards: ${loyaltyCards.length}");
   }
 }

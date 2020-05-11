@@ -44,5 +44,15 @@ void main() {
       verify(mockBox.delete(existingCard.key));
     });
 
+    test('should delete all loyalty card from the box', () async { 
+      final existingCardList = [LoyaltyCard.fromParams('ExistingCard','777878')];
+
+      when(mockBox.keys).thenReturn(existingCardList);
+      
+      await loyaltyCardRepository.deleteAll();
+
+      verify(mockBox.deleteAll(existingCardList));
+    });
+
   });
 }
