@@ -13,7 +13,6 @@ class LoyaltyListPage extends StatefulWidget {
 }
 
 class _LoyaltyListPageState extends State<LoyaltyListPage> {
-
   @override
   void initState() {
     super.initState();
@@ -23,12 +22,12 @@ class _LoyaltyListPageState extends State<LoyaltyListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color(0xFFF6F6F6),
         appBar: AppBar(
           title: Text("Loyalty"),
         ),
         body: Container(
-          child:
-              BlocBuilder<LoyaltyBloc, LoyaltyState>(builder: (_, state) {
+          child: BlocBuilder<LoyaltyBloc, LoyaltyState>(builder: (_, state) {
             switch (state.runtimeType) {
               case LoyaltyEmpty:
                 return _EmptyWidget();
