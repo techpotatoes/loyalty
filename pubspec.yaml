@@ -3,7 +3,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -12,8 +12,8 @@ dependencies:
   path_provider: ^1.6.5
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
-  bloc: ^3.0.0
-  flutter_bloc: ^3.2.0
+  bloc: ^4.0.0
+  flutter_bloc: ^4.0.0
   equatable: ^1.1.1
 
 dev_dependencies:
@@ -23,5 +23,8 @@ dev_dependencies:
   build_runner: ^1.8.1
   hive_generator: ^0.7.0+2
 
+dependency_overrides:
+  dartx: ^0.3.0
+  
 flutter:
   uses-material-design: true
