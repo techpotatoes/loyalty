@@ -1,5 +1,5 @@
-abstract class NavigatorAction  {}
+abstract class NavigatorEvent  {}
 
-class NavigatorActionPop extends NavigatorAction {}
+class NavigatorEventPop extends NavigatorEvent {}
 
-class NavigatorActionAdd extends NavigatorAction {}
+class NavigatorEventAdd extends NavigatorEvent {}

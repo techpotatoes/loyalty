@@ -21,7 +21,7 @@ void main() {
     test('should pop navigator when NavigatorActionPop', () {
       final navigatorBloc = NavigatorBloc(navigatorKey: mockNavigatorKey);
 
-      navigatorBloc.add(NavigatorActionPop());
+      navigatorBloc.add(NavigatorEventPop());
 
       expectLater(navigatorBloc, emitsInOrder(["Initial", "Updated"]))
           .then((value) => verify(mockCurrentState.pop()));
@@ -30,7 +30,7 @@ void main() {
     test('should push named when NavigatorActionAdd', () {
       final navigatorBloc = NavigatorBloc(navigatorKey: mockNavigatorKey);
 
-      navigatorBloc.add(NavigatorActionAdd());
+      navigatorBloc.add(NavigatorEventAdd());
 
       expectLater(navigatorBloc, emitsInOrder(["Initial", "Updated"]))
           .then((value) => verify(mockCurrentState.pushNamed('/add')));

@@ -10,7 +10,7 @@ class LoyaltyAddPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () {
-          BlocProvider.of<NavigatorBloc>(context).add(NavigatorActionPop());
+          BlocProvider.of<NavigatorBloc>(context).add(NavigatorEventPop());
           return Future(() => true);
         },
         child: Scaffold(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loyalty/domain/navigator/navigator_action.dart';
 
-class NavigatorBloc extends Bloc<NavigatorAction, dynamic>{
+class NavigatorBloc extends Bloc<NavigatorEvent, dynamic>{
   
   final GlobalKey<NavigatorState> navigatorKey;
   
@@ -12,10 +12,10 @@ class NavigatorBloc extends Bloc<NavigatorAction, dynamic>{
   dynamic get initialState => "Initial";
 
   @override
-  Stream<dynamic> mapEventToState(NavigatorAction event) async* {
-    if(event is NavigatorActionPop){
+  Stream<dynamic> mapEventToState(NavigatorEvent event) async* {
+    if(event is NavigatorEventPop){
       navigatorKey.currentState.pop();
-    }else if(event is NavigatorActionAdd){
+    }else if(event is NavigatorEventAdd){
       navigatorKey.currentState.pushNamed('/add');
     }
     yield "Updated";
