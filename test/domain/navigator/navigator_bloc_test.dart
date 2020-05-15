@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_override_different_default_values_named, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:loyalty/domain/navigator/navigator_action.dart';
@@ -11,7 +13,7 @@ class MockCurrentState extends Mock implements NavigatorState {
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) =>
       super.toString();
 }
-
+  
 void main() {
   group('Given a Navigator BLoC', () {
     final mockNavigatorKey = MockNavigatorKey();
