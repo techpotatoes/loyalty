@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:loyalty/domain/navigator/navigator_action.dart';
+import 'package:loyalty/domain/navigator/navigator_event.dart';
 import 'package:loyalty/domain/navigator/navigator_bloc.dart';
 import 'package:mockito/mockito.dart';
 
