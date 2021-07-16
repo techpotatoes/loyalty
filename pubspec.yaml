@@ -1,5 +1,5 @@
 name: loyalty
-description: A new Flutter project.
+description: Loyalty app - Blog series.
 version: 1.0.0+1
 
 environment:
@@ -8,24 +8,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
-  path_provider: ^1.6.5
-  hive: ^1.4.1+1
-  hive_flutter: ^0.3.0+2
-  bloc: ^4.0.0
-  flutter_bloc: ^4.0.0
-  equatable: ^1.1.1
+  cupertino_icons: ^1.0.3
+  path_provider: ^2.0.2
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
+  bloc: ^7.0.0
+  flutter_bloc: ^7.0.1
+  equatable: ^2.0.3
   barcode_flutter: ^1.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^4.1.1
-  build_runner: ^1.8.1
-  hive_generator: ^0.7.0+2
+  mockito: ^5.0.11
+  build_runner: ^2.0.6
+  hive_generator: ^1.1.0
 
-dependency_overrides:
-  dartx: ^0.3.0
-  
 flutter:
   uses-material-design: true

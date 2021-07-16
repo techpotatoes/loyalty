@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loyalty/domain/navigator/navigator_action.dart';
+import 'package:loyalty/domain/navigator/navigator_event.dart';
 import 'package:loyalty/domain/navigator/navigator_bloc.dart';
 
 class LoyaltyAddPage extends StatelessWidget {

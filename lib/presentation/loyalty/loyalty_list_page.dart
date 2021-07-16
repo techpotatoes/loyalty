@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loyalty/domain/loyalty/loyalty_bloc.dart';
 import 'package:loyalty/domain/loyalty/loyalty_event.dart';
 import 'package:loyalty/domain/loyalty/loyalty_state.dart';
-import 'package:loyalty/domain/navigator/navigator_action.dart';
+import 'package:loyalty/domain/navigator/navigator_event.dart';
 import 'package:loyalty/domain/navigator/navigator_bloc.dart';
 import 'package:loyalty/presentation/loyalty/loyalty_card_list_widget.dart';
 

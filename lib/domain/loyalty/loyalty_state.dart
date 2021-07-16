@@ -17,9 +17,7 @@ class LoyaltyLoading extends LoyaltyState {}
 class LoyaltyLoaded extends LoyaltyState {
   final List<LoyaltyCard> loyaltyCards;
 
-  const LoyaltyLoaded({
-    this.loyaltyCards
-  });
+  const LoyaltyLoaded({this.loyaltyCards});
 
   @override
   List<Object> get props => [loyaltyCards];
