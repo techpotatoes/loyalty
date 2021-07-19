@@ -8,10 +8,7 @@ import 'package:loyalty/domain/loyalty/loyalty_state.dart';
 class LoyaltyBloc extends Bloc<LoyaltyEvent, LoyaltyState> {
   final LoyaltyCardRepository loyaltyCardRepository;
 
-  LoyaltyBloc({@required this.loyaltyCardRepository}) : super(null);
-
-  @override
-  LoyaltyState get initialState => LoyaltyEmpty();
+  LoyaltyBloc({@required this.loyaltyCardRepository}) : super(LoyaltyEmpty());
 
   @override
   Stream<LoyaltyState> mapEventToState(LoyaltyEvent event) async* {
