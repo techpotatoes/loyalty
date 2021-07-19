@@ -4,7 +4,6 @@ part 'loyaltycard.g.dart';
 
 @HiveType(typeId: 0)
 class LoyaltyCard extends HiveObject {
-
   LoyaltyCard();
 
   LoyaltyCard.fromParams(this.name, this.number);

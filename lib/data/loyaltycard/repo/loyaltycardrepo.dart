@@ -3,17 +3,16 @@ import 'package:loyalty/data/loyaltycard/model/loyaltycard.dart';
 import 'package:loyalty/data/repository.dart';
 
 class LoyaltyCardRepository implements Repository<LoyaltyCard> {
-
   LoyaltyCardBox loyaltyCardBox;
-  
+
   LoyaltyCardRepository(LoyaltyCardBox loyaltyCardBox) {
     this.loyaltyCardBox = loyaltyCardBox;
   }
 
   @override
   Future<List<LoyaltyCard>> getAll() async {
-     final box = await loyaltyCardBox.box;
-     return box.values.toList();
+    final box = await loyaltyCardBox.box;
+    return box.values.toList();
   }
 
   @override
@@ -21,7 +20,7 @@ class LoyaltyCardRepository implements Repository<LoyaltyCard> {
     final box = await loyaltyCardBox.box;
 
     box.add(newObject);
-  } 
+  }
 
   @override
   Future<void> delete(LoyaltyCard objectToDelete) async {
@@ -30,11 +29,10 @@ class LoyaltyCardRepository implements Repository<LoyaltyCard> {
     box.delete(objectToDelete.key);
   }
 
-    @override
+  @override
   Future<void> deleteAll() async {
     final box = await loyaltyCardBox.box;
 
     box.deleteAll(box.keys);
-  } 
- 
+  }
 }
