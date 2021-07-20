@@ -13,29 +13,47 @@ class MockCurrentState extends Mock implements NavigatorState {
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) =>
       super.toString();
 }
-  
+
+abstract class MyFunction {
+  void call() {
+    print("called");
+  }
+}
+
+class MockFunction extends Mock implements MyFunction {}
+
 void main() {
   group('Given a Navigator BLoC', () {
     final mockNavigatorKey = MockNavigatorKey();
     final mockCurrentState = MockCurrentState();
     when(mockNavigatorKey.currentState).thenReturn(mockCurrentState);
+    when(mockCurrentState.pushNamed(any))
+        .thenAnswer((realInvocation) => Future.sync(() => {}));
+
+    test('should open with Initial State', () {
+      final navigatorBloc = NavigatorBloc(navigatorKey: mockNavigatorKey);
+
+      expectLater(navigatorBloc.state, "Initial");
+    });
 
     test('should pop navigator when NavigatorActionPop', () {
       final navigatorBloc = NavigatorBloc(navigatorKey: mockNavigatorKey);
 
       navigatorBloc.add(NavigatorEventPop());
 
-      expectLater(navigatorBloc, emitsInOrder(["Initial", "Updated"]))
+      expectLater(navigatorBloc.stream, emitsInOrder(["Updated"]))
           .then((value) => verify(mockCurrentState.pop()));
     });
 
-    test('should push named when NavigatorActionAdd', () {
+    test('should push named when NavigatorActionAdd and call function', () {
+      final mockFunction = MockFunction();
       final navigatorBloc = NavigatorBloc(navigatorKey: mockNavigatorKey);
 
-      navigatorBloc.add(NavigatorEventAdd());
+      navigatorBloc.add(NavigatorEventAdd(mockFunction));
 
-      expectLater(navigatorBloc, emitsInOrder(["Initial", "Updated"]))
-          .then((value) => verify(mockCurrentState.pushNamed('/add')));
+      expectLater(navigatorBloc.stream, emitsInOrder(["Updated"]))
+          .then((value) => verify(mockCurrentState.pushNamed('/add')))
+          .then((value) => verify(mockFunction()).called(1));
     });
   });
 }

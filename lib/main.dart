@@ -11,6 +11,7 @@ import 'package:loyalty/domain/navigator/navigator_bloc.dart';
 import 'package:loyalty/presentation/loyalty/add/loyalty_add_page.dart';
 import 'package:loyalty/presentation/loyalty/loyalty_list_page.dart';
 import 'package:path_provider/path_provider.dart';
+import 'domain/loyalty/add/loyalty_add_bloc.dart';
 
 Future<void> _initialiseHive() async {
   final Directory appDocDirectory = await getApplicationDocumentsDirectory();
@@ -29,7 +30,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey();
 
   @override
@@ -42,7 +42,17 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<LoyaltyBloc>(
           create: (BuildContext context) => LoyaltyBloc(
-              loyaltyCardRepository: LoyaltyCardRepository(LoyaltyCardBox())),
+            loyaltyCardRepository: LoyaltyCardRepository(
+              LoyaltyCardBox(),
+            ),
+          ),
+        ),
+        BlocProvider<LoyaltyAddBloc>(
+          create: (BuildContext context) => LoyaltyAddBloc(
+            loyaltyCardRepository: LoyaltyCardRepository(
+              LoyaltyCardBox(),
+            ),
+          ),
         ),
       ],
       child: MaterialApp(

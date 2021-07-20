@@ -50,7 +50,9 @@ class _LoyaltyListPageState extends State<LoyaltyListPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          BlocProvider.of<NavigatorBloc>(context).add(NavigatorEventAdd());
+          BlocProvider.of<NavigatorBloc>(context).add(NavigatorEventAdd(() {
+            BlocProvider.of<LoyaltyBloc>(context).add(Fetch());
+          }));
         },
         child: Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,

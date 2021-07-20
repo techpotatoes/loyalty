@@ -11,58 +11,66 @@ class MockLoyaltyCardRepository extends Mock implements LoyaltyCardRepository {}
 class UnhandledEvent extends LoyaltyEvent {}
 
 void main() {
-  final loyaltyCard1 = LoyaltyCard.fromParams('Card1','12345');
+  final loyaltyCard1 = LoyaltyCard.fromParams('Card1', '12345');
 
   group('Given a Loyalty cards BLoC', () {
     final mockLoyaltyCardRepository = MockLoyaltyCardRepository();
-  
-    test('should return error state when the event is not handled', () async {
-        final loyaltyBloc = LoyaltyBloc(loyaltyCardRepository: mockLoyaltyCardRepository);
-        
-        loyaltyBloc.add(UnhandledEvent());
 
-        expectLater(
-          loyaltyBloc,
-          emitsInOrder([LoyaltyEmpty(), LoyaltyError()])
-        );
+    test('should start with empty state', () async {
+      final loyaltyBloc =
+          LoyaltyBloc(loyaltyCardRepository: mockLoyaltyCardRepository);
+
+      expectLater(loyaltyBloc.state, LoyaltyEmpty());
     });
 
-    test('on Fetch should return loaded state when there are more than 0 cards', () async {
-        final loyaltyBloc = LoyaltyBloc(loyaltyCardRepository: mockLoyaltyCardRepository);
-        when(mockLoyaltyCardRepository.getAll()).thenAnswer((_) async => Future.value([loyaltyCard1]));
-        
-        loyaltyBloc.add(Fetch());
+    test('should return error state when the event is not handled', () async {
+      final loyaltyBloc =
+          LoyaltyBloc(loyaltyCardRepository: mockLoyaltyCardRepository);
 
-        expectLater(
-          loyaltyBloc,
-          emitsInOrder([LoyaltyEmpty(), LoyaltyLoading(), LoyaltyLoaded(loyaltyCards: [loyaltyCard1])])
-        );
+      loyaltyBloc.add(UnhandledEvent());
+
+      expectLater(loyaltyBloc.stream, emitsInOrder([LoyaltyError()]));
+    });
+
+    test('on Fetch should return loaded state when there are more than 0 cards',
+        () async {
+      final loyaltyBloc =
+          LoyaltyBloc(loyaltyCardRepository: mockLoyaltyCardRepository);
+      when(mockLoyaltyCardRepository.getAll())
+          .thenAnswer((_) async => Future.value([loyaltyCard1]));
+
+      loyaltyBloc.add(Fetch());
+
+      expectLater(
+          loyaltyBloc.stream,
+          emitsInOrder([
+            LoyaltyLoading(),
+            LoyaltyLoaded(loyaltyCards: [loyaltyCard1])
+          ]));
     });
 
     test('on Fetch should return empty state when there are 0 cards', () async {
-        final loyaltyBloc = LoyaltyBloc(loyaltyCardRepository: mockLoyaltyCardRepository);
-        when(mockLoyaltyCardRepository.getAll()).thenAnswer((_) async => Future.value([]));
-        
-        loyaltyBloc.add(Fetch());
+      final loyaltyBloc =
+          LoyaltyBloc(loyaltyCardRepository: mockLoyaltyCardRepository);
+      when(mockLoyaltyCardRepository.getAll())
+          .thenAnswer((_) async => Future.value([]));
 
-        expectLater(
-          loyaltyBloc,
-          emitsInOrder([LoyaltyEmpty(), LoyaltyLoading(), LoyaltyEmpty()])
-        );
+      loyaltyBloc.add(Fetch());
+
+      expectLater(
+          loyaltyBloc.stream, emitsInOrder([LoyaltyLoading(), LoyaltyEmpty()]));
     });
 
-    test('on Fetch should return error state when there is an exception', () async {
-        final loyaltyBloc = LoyaltyBloc(loyaltyCardRepository: mockLoyaltyCardRepository);
-        when(mockLoyaltyCardRepository.getAll()).thenThrow(Exception());
-        
-        loyaltyBloc.add(Fetch());
+    test('on Fetch should return error state when there is an exception',
+        () async {
+      final loyaltyBloc =
+          LoyaltyBloc(loyaltyCardRepository: mockLoyaltyCardRepository);
+      when(mockLoyaltyCardRepository.getAll()).thenThrow(Exception());
 
-        expectLater(
-          loyaltyBloc,
-          emitsInOrder([LoyaltyEmpty(), LoyaltyLoading(), LoyaltyError()])
-        );
+      loyaltyBloc.add(Fetch());
+
+      expectLater(
+          loyaltyBloc.stream, emitsInOrder([LoyaltyLoading(), LoyaltyError()]));
     });
-
   });
-  
 }
