@@ -6,9 +6,11 @@ import 'package:hive/hive.dart';
 import 'package:loyalty/data/hive/loyaltycardbox.dart';
 import 'package:loyalty/data/loyaltycard/model/loyaltycard.dart';
 import 'package:loyalty/data/loyaltycard/repo/loyaltycardrepo.dart';
+import 'package:loyalty/domain/loyalty/detail/loyalty_detail_bloc.dart';
 import 'package:loyalty/domain/loyalty/loyalty_bloc.dart';
 import 'package:loyalty/domain/navigator/navigator_bloc.dart';
 import 'package:loyalty/presentation/loyalty/add/loyalty_add_page.dart';
+import 'package:loyalty/presentation/loyalty/detail/loyalty_detail_page.dart';
 import 'package:loyalty/presentation/loyalty/loyalty_list_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'domain/loyalty/add/loyalty_add_bloc.dart';
@@ -54,6 +56,13 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        BlocProvider<LoyaltyDetailBloc>(
+          create: (BuildContext context) => LoyaltyDetailBloc(
+            loyaltyCardRepository: LoyaltyCardRepository(
+              LoyaltyCardBox(),
+            ),
+          ),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -64,6 +73,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/home': (context) => LoyaltyListPage(),
           '/add': (context) => LoyaltyAddPage(),
+          '/detail': (context) => LoyaltyDetailPage(),
         },
       ),
     );

@@ -11,7 +11,7 @@ class LoyaltyDetailBarcodeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BarCodeImage(
-      params: EAN13BarCodeParams(
+      params: CodabarBarCodeParams(
         loyaltyCard.number,
         lineWidth: 2.0,
         barHeight: 90.0,

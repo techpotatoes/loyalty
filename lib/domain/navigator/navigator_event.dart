@@ -7,3 +7,10 @@ class NavigatorEventAdd extends NavigatorEvent {
 
   NavigatorEventAdd(this.andThen);
 }
+
+class NavigatorEventOpenDetail extends NavigatorEvent {
+  final String loyaltyCardId;
+  final Function andThen;
+
+  NavigatorEventOpenDetail(this.loyaltyCardId, this.andThen);
+}

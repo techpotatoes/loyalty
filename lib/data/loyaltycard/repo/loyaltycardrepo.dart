@@ -16,6 +16,13 @@ class LoyaltyCardRepository implements Repository<LoyaltyCard> {
   }
 
   @override
+  Future<LoyaltyCard> getById(String id) async {
+    final box = await loyaltyCardBox.box;
+
+    return box.values.firstWhere((element) => element.number == id);
+  }
+
+  @override
   Future<void> save(LoyaltyCard newObject) async {
     final box = await loyaltyCardBox.box;
 

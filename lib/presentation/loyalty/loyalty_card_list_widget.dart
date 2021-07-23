@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loyalty/data/loyaltycard/model/loyaltycard.dart';
+import 'package:loyalty/domain/loyalty/loyalty_bloc.dart';
+import 'package:loyalty/domain/loyalty/loyalty_event.dart';
+import 'package:loyalty/domain/navigator/navigator_bloc.dart';
+import 'package:loyalty/domain/navigator/navigator_event.dart';
 import 'package:loyalty/presentation/util/colors_util.dart';
 
 class LoyaltyCardListWidget extends StatelessWidget {
@@ -42,7 +47,10 @@ class _LoyaltyCardItemWidget extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
-            print('Card tapped.');
+            BlocProvider.of<NavigatorBloc>(context)
+                .add(NavigatorEventOpenDetail(loyaltyCard.number, () {
+              BlocProvider.of<LoyaltyBloc>(context).add(Fetch());
+            }));
           },
           child: Row(
             children: <Widget>[
@@ -75,7 +83,10 @@ class _LoyaltyCardItemWidget extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       loyaltyCard.name,
-                      style: new TextStyle(color: itemColor, fontSize: 20.0, fontWeight: FontWeight.bold),
+                      style: new TextStyle(
+                          color: itemColor,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
                     ),
                     Text(
                       loyaltyCard.number,

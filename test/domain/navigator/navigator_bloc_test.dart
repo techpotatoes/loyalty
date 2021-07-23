@@ -29,6 +29,8 @@ void main() {
     when(mockNavigatorKey.currentState).thenReturn(mockCurrentState);
     when(mockCurrentState.pushNamed(any))
         .thenAnswer((realInvocation) => Future.sync(() => {}));
+    when(mockCurrentState.pushNamed(any, arguments: "loyaltyCardId"))
+        .thenAnswer((realInvocation) => Future.sync(() => {}));
 
     test('should open with Initial State', () {
       final navigatorBloc = NavigatorBloc(navigatorKey: mockNavigatorKey);
@@ -53,6 +55,19 @@ void main() {
 
       expectLater(navigatorBloc.stream, emitsInOrder(["Updated"]))
           .then((value) => verify(mockCurrentState.pushNamed('/add')))
+          .then((value) => verify(mockFunction()).called(1));
+    });
+
+    test('should push named when NavigatorOpenDetail and call function', () {
+      final mockFunction = MockFunction();
+      final navigatorBloc = NavigatorBloc(navigatorKey: mockNavigatorKey);
+
+      navigatorBloc
+          .add(NavigatorEventOpenDetail("loyaltyCardId", mockFunction));
+
+      expectLater(navigatorBloc.stream, emitsInOrder(["Updated"]))
+          .then((value) => verify(mockCurrentState.pushNamed('/detail',
+              arguments: "loyaltyCardId")))
           .then((value) => verify(mockFunction()).called(1));
     });
   });

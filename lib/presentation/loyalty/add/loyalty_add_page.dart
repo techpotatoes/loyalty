@@ -29,6 +29,35 @@ class _LoyaltyAddPageState extends State<LoyaltyAddPage> {
           backgroundColor: Color(0xFFF6F6F6),
           appBar: AppBar(
             title: Text("New loyalty card"),
+            actions: [
+              BlocBuilder<LoyaltyAddBloc, LoyaltyAddState>(builder: (_, state) {
+                switch (state.runtimeType) {
+                  case LoyaltyAddAdding:
+                    return Padding(
+                        padding: EdgeInsets.only(right: 20.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            BlocProvider.of<LoyaltyAddBloc>(context).add(
+                              Save(
+                                LoyaltyCard.fromParams(
+                                  _textNameController.value.text,
+                                  _textNumberController.value.text,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Icon(
+                            Icons.save,
+                            size: 26.0,
+                          ),
+                        ));
+                    break;
+                  default:
+                    return Spacer();
+                    break;
+                }
+              }),
+            ],
           ),
           body: BlocBuilder<LoyaltyAddBloc, LoyaltyAddState>(
             builder: (_, state) {
@@ -40,9 +69,15 @@ class _LoyaltyAddPageState extends State<LoyaltyAddPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            Text("Loyalty card name"),
+                            Text(
+                              "Loyalty card name",
+                              style: new TextStyle(
+                                  color: Colors.black87, fontSize: 14.0),
+                            ),
                             TextField(
                               controller: _textNameController,
+                              style: new TextStyle(
+                                  color: Colors.black87, fontSize: 14.0),
                             ),
                           ],
                         ),
@@ -51,25 +86,19 @@ class _LoyaltyAddPageState extends State<LoyaltyAddPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            Text("Loyalty card number"),
+                            Text(
+                              "Loyalty card number",
+                              style: new TextStyle(
+                                  color: Colors.black87, fontSize: 14.0),
+                            ),
                             TextField(
                               controller: _textNumberController,
+                              style: new TextStyle(
+                                  color: Colors.black87, fontSize: 14.0),
                             ),
                           ],
                         ),
                       ),
-                      MaterialButton(
-                          child: Text("Save"),
-                          onPressed: () {
-                            BlocProvider.of<LoyaltyAddBloc>(context).add(
-                              Save(
-                                LoyaltyCard.fromParams(
-                                  _textNameController.value.text,
-                                  _textNumberController.value.text,
-                                ),
-                              ),
-                            );
-                          }),
                     ],
                   );
                   break;
@@ -97,8 +126,9 @@ class _SavedWidget extends StatelessWidget {
     return Center(
       child: Column(
         children: [
+          Spacer(),
           Text("The loyalty card has been saved."),
-          MaterialButton(
+          ElevatedButton(
               child: Text("Done"),
               onPressed: () {
                 BlocProvider.of<LoyaltyAddBloc>(context).add(Reset());
@@ -106,6 +136,7 @@ class _SavedWidget extends StatelessWidget {
                   NavigatorEventPop(),
                 );
               }),
+          Spacer(),
         ],
       ),
     );
